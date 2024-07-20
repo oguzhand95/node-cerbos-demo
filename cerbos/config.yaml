@@ -1,0 +1,28 @@
+---
+audit:
+  accessLogsEnabled: true
+  backend: local
+  decisionLogsEnabled: true
+  enabled: true
+  local:
+    storagePath: "/tmp/cerbos/audit.log"
+
+auxData:
+  jwt:
+    disableVerification: true
+
+engine:
+  defaultPolicyVersion: "default"
+
+server:
+  adminAPI:
+    enabled: true
+  grpcListenAddr: ":3593"
+  httpListenAddr: ":3592"
+  metricsEnabled: true
+
+storage:
+  driver: "disk"
+  disk:
+    directory: "/cerbos-service/policies"
+    watchForChanges: true

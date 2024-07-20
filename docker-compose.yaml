@@ -1,0 +1,31 @@
+networks:
+  core_network:
+
+services:
+  cerbos:
+    command: ["server", "--config=/cerbos-service/config.yaml"]
+    container_name: cerbos-service
+    environment:
+      - CERBOS_ADMIN_USERNAME=cerbos
+      - CERBOS_ADMIN_PASSWORD_HASH=cerbosAdmin
+    networks:
+      - core_network
+    image: ghcr.io/cerbos/cerbos:latest
+    ports:
+      - "3592:3592"
+      - "3593:3593"
+    volumes:
+      - ./cerbos/policies:/cerbos-service/policies
+      - ./cerbos/config.yaml:/cerbos-service/config.yaml
+
+  node-cerbos-demo:
+    build:
+      context: .
+    container_name: node-cerbos-demo
+    environment:
+      - CERBOS_HOST=cerbos-service
+      - CERBOS_PORT=3593
+    networks:
+      - core_network
+    ports:
+      - 3000:3000
