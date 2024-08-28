@@ -21,6 +21,7 @@ app.get("/", async (req, res) => {
   );
 
   try {
+    console.time("cerbos");
     const isAllowed = await cerbos.isAllowed({
       principal: {
         id: "someuser",
@@ -33,6 +34,7 @@ app.get("/", async (req, res) => {
       action: "create",
     });
     res.send(`cerbos response: ${isAllowed}`);
+    console.timeEnd("cerbos");
   } catch (e) {
     res.send(`failed: ${e}`);
   }
